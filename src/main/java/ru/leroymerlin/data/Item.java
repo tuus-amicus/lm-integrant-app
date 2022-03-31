@@ -1,12 +1,14 @@
 package ru.leroymerlin.data;
 
+import java.math.BigDecimal;
+
 public class Item {
     private final String itemName;
-    private final Double sum;
+    private final BigDecimal sum;
     private final Integer quantity;
-    private final Double commission;
+    private final BigDecimal commission;
 
-    public Item(String itemName, Double sum, Integer quantity, Double commission) {
+    public Item(String itemName, BigDecimal sum, Integer quantity, BigDecimal commission) {
         this.quantity = quantity;
         this.itemName = itemName;
         this.sum = sum;
@@ -32,11 +34,11 @@ public class Item {
         return itemName;
     }
 
-    public Double getSum() {
+    public BigDecimal getSum() {
         return sum;
     }
 
-    public Double getCommission() {
+    public BigDecimal getCommission() {
         return commission;
     }
     //endregion

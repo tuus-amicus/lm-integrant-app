@@ -1,11 +1,13 @@
 package ru.leroymerlin.data;
 
+import java.math.BigDecimal;
+
 public class Service {
     private final String itemName;
-    private final Double sum;
-    private final Double commission;
+    private final BigDecimal sum;
+    private final BigDecimal commission;
 
-    public Service(String itemName, Double sum, Double commission) {
+    public Service(String itemName, BigDecimal sum, BigDecimal commission) {
         this.itemName = itemName;
         this.sum = sum;
         this.commission = commission;
@@ -25,11 +27,11 @@ public class Service {
         return itemName;
     }
 
-    public Double getSum() {
+    public BigDecimal getSum() {
         return sum;
     }
 
-    public Double getCommission() {
+    public BigDecimal getCommission() {
         return commission;
     }
     //endregion
