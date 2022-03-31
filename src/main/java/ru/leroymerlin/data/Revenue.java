@@ -2,11 +2,13 @@ package ru.leroymerlin.data;
 
 import ru.leroymerlin.protocol.ReportType;
 
+import java.math.BigDecimal;
+
 public class Revenue {
     private final ReportType reportType;
-    private final Double profit;
+    private final BigDecimal profit;
 
-    public Revenue(ReportType reportType, Double profit) {
+    public Revenue(ReportType reportType, BigDecimal profit) {
         this.reportType = reportType;
         this.profit = profit;
     }
@@ -24,7 +26,7 @@ public class Revenue {
         return reportType;
     }
 
-    public Double getProfit() {
+    public BigDecimal getProfit() {
         return profit;
     }
     //endregion
