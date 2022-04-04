@@ -1,5 +1,6 @@
 package ru.leroymerlin;
 
+import ru.leroymerlin.comparators.ServiceComparator;
 import ru.leroymerlin.data.Item;
 import ru.leroymerlin.data.Service;
 import ru.leroymerlin.protocol.ReportType;
@@ -16,13 +17,16 @@ import java.util.Scanner;
 public class BillingMenu {
     private static List<Item> listOfItems;
     private static List<Service> listOfService;
-
+    private static Map<ReportType, Double> sumOfItemsFromRevenue;
+    private static Map<ReportType, Double> sumOfServiceFromRevenue;
     public static void greeting() throws URISyntaxException, IOException {
         System.out.println("Приветствуем в билинговой системе! Что вам требуется?");
         BillingMenu.print();
 
         listOfItems = ItemReader.getItems();
         listOfService = ServiceReader.getServices();
+        sumOfItemsFromRevenue = RevenueReader.getRevenue();
+        sumOfServiceFromRevenue = RevenueReader.getRevenue();
 
         Scanner scanner = new Scanner(System.in);
         String input;
@@ -78,7 +82,7 @@ public class BillingMenu {
 
     private static void printMinService() throws URISyntaxException, IOException {
         Service minProfitService = listOfService.stream()
-                .min(Service::compare)
+                .min(new ServiceComparator())
                 .get();
         double profit=minProfitService.getSum()- minProfitService.getCommission();
         System.out.println("Минимальная выручка " + profit + " по услуге "
@@ -90,7 +94,6 @@ public class BillingMenu {
         double sumOfItemsFromFile = listOfItems.stream()
                 .mapToDouble(i -> (i.getSum() - i.getCommission()) * i.getQuantity())
                 .sum();
-        Map<ReportType, Double> sumOfItemsFromRevenue = RevenueReader.getRevenue();
         if (sumOfItemsFromRevenue.get(ReportType.ITEM).equals(sumOfItemsFromFile))
             System.out.println("Выручка по товарам " + sumOfItemsFromFile + " совпадает с выручкой из отчёта " +
                     sumOfItemsFromRevenue.get(ReportType.ITEM));
@@ -103,7 +106,6 @@ public class BillingMenu {
         double sumOfServiceFromFile = listOfService.stream()
                 .mapToDouble(i -> i.getSum() - i.getCommission())
                 .sum();
-        Map<ReportType, Double> sumOfServiceFromRevenue = RevenueReader.getRevenue();
         if (sumOfServiceFromRevenue.get(ReportType.SERVICE).equals(sumOfServiceFromFile))
             System.out.println("Выручка по услугам " + sumOfServiceFromFile + " совпадает с выручкой из отчёта " + sumOfServiceFromRevenue.get(ReportType.SERVICE));
         else

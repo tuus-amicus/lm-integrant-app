@@ -10,17 +10,6 @@ public class Service {
         this.sum = sum;
         this.commission = commission;
     }
-
-    // метод служит для сравнения профита
-    public static int compare(Service service1, Service service2) {
-        //считается профит с первой услуги и со второй и возвращается service1>service2
-        double profitService1 = service1.getSum() - service1.getCommission();
-        double profitService2 = service2.getSum() - service2.getCommission();
-        if (profitService1 > profitService2)
-            return 1;
-        return -1;
-    }
-
     //region ToString, getters, setters
     @Override
     public String toString() {
